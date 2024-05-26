@@ -69,17 +69,27 @@ function authenticateToken(req, res, next) {
 // localhost:6000/add-contact
 app.post("/add-contact/:id", authenticateToken, async (req, res) => {
   try {
-    await Contacts.create({
-      name: req.body.name,
-      phoneno: req.body.phoneno,
-      age: req.body.age,
-      typeOfContact: req.body.typeOfContact,
-      userID: req.params.id
-    });
-    res.json({
-      status: "success",
-      message: "entry successfully added",
-    });
+    const contactadded = await Contacts.find({"phoneno":req.body.phoneno})
+    if(contactadded.length === 0){
+      await Contacts.create({
+        name: req.body.name,
+        phoneno: req.body.phoneno,
+        age: req.body.age,
+        typeOfContact: req.body.typeOfContact,
+        userID: req.params.id
+      });
+      res.json({
+        status: "success",
+        message: "entry successfully added",
+      });
+    }
+    else{
+      res.json({
+        status: "failure",
+        message: "the contact is already present."
+      });
+    }
+   
   } catch (error) {
     res.status(500).json({
       status: "failure",
