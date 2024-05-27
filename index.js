@@ -170,17 +170,17 @@ app.patch("/update-contact/:id", authenticateToken,async (req, res) => {
 
 app.post("/addUser", async (req, res) => {
   try {
-    const user = await User.find({ email: req.body.email });
-    if (user.length === 0) {
+    const userfirst = await User.find({ email: req.body.email });
+    if (userfirst.length === 0) {
       const user = await User.create({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
       });
       const userDetail = {
-        username: user[0].username,
-        email: user[0].email,
-        userID: user[0]._id
+        username: user.username,
+        email: user.email,
+        userID: user._id
       };
       const accessToken = generateToken(userDetail);
       res.json({
