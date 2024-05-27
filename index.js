@@ -69,7 +69,7 @@ function authenticateToken(req, res, next) {
 // localhost:6000/add-contact
 app.post("/add-contact/:id", authenticateToken, async (req, res) => {
   try {
-    const contactadded = await Contacts.find({"phoneno":req.body.phoneno})
+    const contactadded = await Contacts.find({"phoneno":req.body.phoneno},{"userID":req.params.id})
     if(contactadded.length === 0){
       await Contacts.create({
         name: req.body.name,
