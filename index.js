@@ -188,6 +188,7 @@ app.post("/addUser", async (req, res) => {
         status: "success",
         message: "user account created successfully",
         accessToken: accessToken,
+        userDetail : userDetail
       });
     } else {
       res.status(409).json({
