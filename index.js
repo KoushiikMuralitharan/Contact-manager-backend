@@ -177,10 +177,11 @@ app.post("/addUser", async (req, res) => {
         email: req.body.email,
         password: req.body.password,
       });
+      const usernext = await User.find({ email: req.body.email });
       const userDetail = {
-        username: user.username,
-        email: user.email,
-        userID: user._id
+        username: usernext[0].username,
+        email: usernext[0].email,
+        userID: usernext[0]._id
       };
       const accessToken = generateToken(userDetail);
       res.json({
