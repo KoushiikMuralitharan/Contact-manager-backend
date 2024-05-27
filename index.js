@@ -178,9 +178,9 @@ app.post("/addUser", async (req, res) => {
         password: req.body.password,
       });
       const userDetail = {
-        username: user.username,
-        email: user.email,
-        userID: user._id.toString(),
+        username: user[0].username,
+        email: user[0].email,
+        userID: user[0]._id
       };
       const accessToken = generateToken(userDetail);
       res.json({
