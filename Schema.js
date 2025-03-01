@@ -10,6 +10,8 @@ const  contactDetailsSchema = new mongoose.Schema({
     age:{
         type:Number
     },
+    
+    
     typeOfContact:{
         type:String
     },
